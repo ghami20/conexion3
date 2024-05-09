@@ -22,6 +22,7 @@ public class UsuarioControlador implements UserRepository {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users ");
             ResultSet resultSet = statement.executeQuery();
        
+            
             while (resultSet.next()) {
             	Usuario user = new Usuario(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"));
                 users.add(user);
