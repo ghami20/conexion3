@@ -1,9 +1,7 @@
-package Vista;
+package conexion;
 
 import javax.swing.JOptionPane;
 
-import Modelos.Usuario;
-import Controlador.UsuarioControlador;
 public class Main {
 	public static void main(String[] args) {
 		
