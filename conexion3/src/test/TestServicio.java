@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import org.junit.Test;
 
 import Modelo.Servicio;
-import controlador.ServicioControlador;
+import Controlador.ServicioControlador;
 
 public class TestServicio {
 	@Test

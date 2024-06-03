@@ -1,5 +1,5 @@
 
-package controlador;
+package Controlador;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

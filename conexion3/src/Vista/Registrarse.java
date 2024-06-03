@@ -8,14 +8,11 @@ import javax.swing.border.EmptyBorder;
 
 import Modelo.Usuario;
 
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.event.ActionListener;
-import java.util.concurrent.ForkJoinPool;
 import java.awt.event.ActionEvent;
 
 public class Registrarse extends JFrame {
@@ -28,54 +25,63 @@ public class Registrarse extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-
 	
+
+	/**
+	 * Create the frame.
+	 */
 	public Registrarse() {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 207, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JLabel lblnombre = new JLabel("nombre");
+		lblnombre.setBounds(74, 44, 46, 14);
+		contentPane.add(lblnombre);
+		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(205, 77, 86, 20);
+		textField.setBounds(54, 69, 86, 20);
 		contentPane.add(textField);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(205, 117, 86, 20);
-		contentPane.add(passwordField);
+		JLabel lblcontrasena = new JLabel("contraseña");
+		lblcontrasena.setBounds(54, 100, 86, 14);
+		contentPane.add(lblcontrasena);
 		
-		JButton btnCrearCuenta = new JButton("Crear cuenta");
-		btnCrearCuenta.addActionListener(new ActionListener() {
+		passwordField = new JPasswordField();
+		passwordField.setBounds(54, 121, 86, 20);
+		contentPane.add(passwordField);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(10, 152, 171, 14);
+		contentPane.add(lblNewLabel);
+		lblNewLabel.setVisible(false);
+
+		JButton btnEnviar = new JButton("Registrarse");
+		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				
 				Usuario nuevo = new Usuario();
-				
-				
-				if(nuevo.Registrarse(textField.getText(), passwordField.getText())) {
+				String respuesta = nuevo.Registrarse(textField.getText(),passwordField.getText() );
+				if (respuesta.equals("Ok")) {
 					Home home = new Home(textField.getText());
 					dispose();
-				}else {
-					JOptionPane.showMessageDialog(null, "Error");
+				} else {
+					lblNewLabel.setText(respuesta);
+					lblNewLabel.setVisible(true);
 				}
 				
 			}
 		});
-		btnCrearCuenta.setBounds(202, 174, 128, 23);
-		contentPane.add(btnCrearCuenta);
+		btnEnviar.setBounds(53, 177, 89, 23);
+		contentPane.add(btnEnviar);
 		
-		JLabel lblContrasea = new JLabel("Contraseña");
-		lblContrasea.setBounds(205, 96, 86, 14);
-		contentPane.add(lblContrasea);
-		
-		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(218, 52, 46, 14);
-		contentPane.add(lblNombre);
+	
 	}
 
 }

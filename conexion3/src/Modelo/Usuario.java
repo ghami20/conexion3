@@ -1,6 +1,8 @@
 package Modelo;
 
-import controlador.UsuarioControlador;
+import javax.swing.JOptionPane;
+
+import Controlador.UsuarioControlador;
 
 public class Usuario {
 	private int id;
@@ -20,6 +22,7 @@ public class Usuario {
 	}
 
 	public Usuario() {
+		
 	}
 
 	public int getId() {
@@ -51,32 +54,37 @@ public class Usuario {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", email=" + email + "]";
 	}
 
-	public boolean IniciarSesion(String nombre, String mail) {
+	public String IniciarSesion(String nombre, String mail) {
 
 		UsuarioControlador controlador = new UsuarioControlador();
 
-		for (Usuario usuario : controlador.getAllUsers()) {
-			if (usuario.getNombre().equals(nombre) && usuario.getEmail().equals(mail)) {
-				return true;
+		if (controlador.getAllUsers().isEmpty()) {
+			return "No hay usuarios";
+		} else {
+			
+			for (Usuario usuario : controlador.getAllUsers()) {
+				if (usuario.getNombre().equals(nombre) && usuario.getEmail().equals(mail)) {
+					return "Ingresa";
+				}
 			}
 		}
-		return false;
+		return "No se encontró";
 
 	}
 
 
-	public boolean Registrarse(String nombre, String mail) {
+	public String Registrarse(String nombre, String mail) {
 
 		UsuarioControlador controlador = new UsuarioControlador();
 
 		for (Usuario usuario : controlador.getAllUsers()) {
 			if (usuario.getNombre().equals(nombre)) {
-				return false;
+				return "Usuario existente";
 			}
 		}
 		
 		controlador.addUser(new Usuario(nombre,mail));
-		return true;
+		return "Ok";
 
 	}
 }

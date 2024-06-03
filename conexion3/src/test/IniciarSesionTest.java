@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import Modelo.Usuario;
-import controlador.UsuarioControlador;
+import Controlador.UsuarioControlador;
 
 public class IniciarSesionTest {
 

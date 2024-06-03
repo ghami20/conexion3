@@ -12,16 +12,16 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JPasswordField;
 import java.awt.Color;
 
-public class PantallaInicio extends JFrame {
+public class PantallaIniciarSesion extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField InpNombre;
+	private JTextField inpNombre;
 	private JPasswordField inpContrasena;
 
 	/**
@@ -31,7 +31,7 @@ public class PantallaInicio extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PantallaInicio frame = new PantallaInicio();
+					PantallaIniciarSesion frame = new PantallaIniciarSesion();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,72 +43,74 @@ public class PantallaInicio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PantallaInicio() {
+	public PantallaIniciarSesion() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 317, 318);
+		setBounds(100, 100, 281, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(112, 53, 46, 14);
-		contentPane.add(lblNombre);
+		JLabel lblnombre = new JLabel("nombre");
+		lblnombre.setBounds(71, 32, 46, 14);
+		contentPane.add(lblnombre);
 		
-		InpNombre = new JTextField();
-		InpNombre.setBounds(99, 78, 86, 20);
-		contentPane.add(InpNombre);
-		InpNombre.setColumns(10);
-
-		inpContrasena = new JPasswordField();
-		inpContrasena.setBounds(99, 118, 86, 20);
-		contentPane.add(inpContrasena);
-		JLabel lblError = new JLabel("Error al iniciar sesión");
+		inpNombre = new JTextField();
+		inpNombre.setBounds(71, 57, 86, 20);
+		contentPane.add(inpNombre);
+		inpNombre.setColumns(10);
+		
+		JLabel lblError = new JLabel("");
 		lblError.setForeground(Color.RED);
-		lblError.setBounds(81, 153, 104, 14);
+		lblError.setBounds(26, 140, 229, 14);
 		contentPane.add(lblError);
-		lblError.setVisible(false);
 		
-		JButton btnNewButton = new JButton("Ingresar");
-		btnNewButton.addActionListener(new ActionListener() {
+		lblError.setVisible(false);
+		JButton btnEnviar = new JButton("Ingresar");
+		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
 				Usuario nuevo = new Usuario();
-				
-				if (nuevo.IniciarSesion(InpNombre.getText(), inpContrasena.getText())) {
+				String respuesta = nuevo.IniciarSesion(inpNombre.getText(),inpContrasena.getText());
+				if (respuesta.equals("Ingresa")) {
+					Home home = new Home(inpNombre.getText());
 					lblError.setVisible(false);
-					Home home = new Home(InpNombre.getText());
+
 					dispose();
 				} else {
+					lblError.setText(respuesta);
 					lblError.setVisible(true);
-
 				}
 				
 				
 				
 			}
 		});
-		btnNewButton.setBounds(20, 178, 89, 23);
-		contentPane.add(btnNewButton);
+		btnEnviar.setBounds(26, 165, 89, 23);
+		contentPane.add(btnEnviar);
 		
 		JButton btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				
 				
 				Registrarse registrarse = new Registrarse();
 				dispose();
 				
 			}
 		});
-		btnRegistrarse.setBounds(170, 178, 89, 23);
+		btnRegistrarse.setBounds(144, 165, 89, 23);
 		contentPane.add(btnRegistrarse);
 		
-		JLabel lblContrasea = new JLabel("Contraseña");
-		lblContrasea.setBounds(99, 97, 86, 14);
-		contentPane.add(lblContrasea);
+		inpContrasena = new JPasswordField();
+		inpContrasena.setBounds(71, 109, 86, 20);
+		contentPane.add(inpContrasena);
 		
-		
+		JLabel lblcontrasena = new JLabel("contraseña");
+		lblcontrasena.setBounds(71, 88, 86, 14);
+		contentPane.add(lblcontrasena);
+	
 	}
 }
