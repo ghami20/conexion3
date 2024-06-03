@@ -1,6 +1,4 @@
-/Modelos/
+/controlador/
+/test/
 /Vista/
-/Controlador/
-/Interfaces.class
-/Interfaces/
-/conexion/
+/Modelo/
