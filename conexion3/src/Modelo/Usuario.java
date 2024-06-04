@@ -54,7 +54,7 @@ public class Usuario {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", email=" + email + "]";
 	}
 
-	public String IniciarSesion(String nombre, String mail) {
+	public static String IniciarSesion(String nombre, String mail) {
 
 		UsuarioControlador controlador = new UsuarioControlador();
 
@@ -67,24 +67,35 @@ public class Usuario {
 					return "Ingresa";
 				}
 			}
+			return "No se encontró";
+
 		}
-		return "No se encontró";
 
 	}
 
 
-	public String Registrarse(String nombre, String mail) {
+	public static String Registrarse(String nombre, String mail) {
 
 		UsuarioControlador controlador = new UsuarioControlador();
 
-		for (Usuario usuario : controlador.getAllUsers()) {
-			if (usuario.getNombre().equals(nombre)) {
-				return "Usuario existente";
+		if (nombre.length()>3 ) {
+			if (mail.length()>3) {
+				for (Usuario usuario : controlador.getAllUsers()) {
+					if (usuario.getNombre().equals(nombre)) {
+						return "Usuario existente";
+					}
+				}
+				controlador.addUser(new Usuario(nombre,mail));
+				return "Ok";
+			} else {
+				return "Ingrese un mail valido(Minimo 4 letras)";
 			}
+		} else {
+			return "Ingrese un nombre valido(Minimo 4 letras)";
+
 		}
 		
-		controlador.addUser(new Usuario(nombre,mail));
-		return "Ok";
+		
 
 	}
 }
