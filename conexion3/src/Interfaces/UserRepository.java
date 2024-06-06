@@ -12,7 +12,7 @@ public interface UserRepository {
     
     void addUser(Usuario user); //añade usuarios a la bdd
     
-    void updateUser(Usuario user); //actualiza los usuarios de la bdd
+    boolean updateUser(Usuario user); //actualiza los usuarios de la bdd
     
     boolean deleteUser(int id); //eliminar usuarios de la bdd
 }

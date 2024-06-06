@@ -18,6 +18,7 @@ import Modelo.Usuario;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -35,23 +36,13 @@ public class tabla extends JFrame {
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    tabla frame = new tabla();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
+    
     /**
      * Create the frame.
      */
     public tabla() {
+    	this.setVisible(true);
+    	this.setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 909, 452);
         contentPane = new JPanel();
@@ -61,7 +52,7 @@ public class tabla extends JFrame {
 
         // Inicializar controlador y usuario seleccionado
         controlador = new UsuarioControlador();
-        seleccionado = new Usuario();
+       Usuario seleccionado = new Usuario();
 
         // Crear la tabla y el modelo
         String[] columnNames = {"ID", "Nombre", "mail"};
@@ -82,14 +73,38 @@ public class tabla extends JFrame {
 
         // Crear el botón de eliminar
         JButton Eliminar = new JButton("Eliminar");
-        Eliminar.setBounds(163, 300, 464, 57);
+        Eliminar.setBounds(574, 295, 250, 54);
         Eliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                controlador.deleteUser(seleccionado.getId());
-                actualizarTabla();
+            	if (seleccionado.getId()!=0) {
+            	      controlador.deleteUser(seleccionado.getId());
+                      actualizarTabla();
+                      seleccionado.setId(0);
+				} else {
+					JOptionPane.showMessageDialog(null, "Seleccione un usuario");
+				}
+          
             }
         });
         contentPane.add(Eliminar);
+        
+        JButton Editar = new JButton("Editar");
+        Editar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		if (seleccionado.getId()!=0) {
+          	      	Editar editar = new Editar(seleccionado);
+                    dispose();
+                    seleccionado.setId(0);
+				} else {
+					JOptionPane.showMessageDialog(null, "Seleccione un usuario");
+				}
+        		
+        		
+        	}
+        });
+        Editar.setBounds(109, 295, 250, 54);
+        contentPane.add(Editar);
 
         // Configurar el modelo de selección
         ListSelectionModel selectionModel = table.getSelectionModel();
@@ -124,7 +139,13 @@ public class tabla extends JFrame {
 
         // Agregar los datos al modelo
         for (Usuario usuario : usuarios) {
-            model.addRow(new Object[]{usuario.getId(), usuario.getNombre(), usuario.getEmail()});
+            model.addRow(
+            		new Object[]
+            				{usuario.getId()
+            						, usuario.getNombre()
+            						, usuario.getEmail()
+            						}
+            		);
         }
     }
 }

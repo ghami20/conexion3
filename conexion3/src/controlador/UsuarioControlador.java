@@ -70,19 +70,26 @@ public class UsuarioControlador implements UserRepository {
     }
 
 	@Override
-    public void updateUser(Usuario usuario) {
+    public boolean updateUser(Usuario usuario) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE users SET name = ?, email = ? WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement(
+            		"UPDATE `users` SET `name`='?',`email`='?' WHERE id= '?'");
             statement.setString(1, usuario.getNombre());
             statement.setString(2, usuario.getEmail());
-            statement.setInt(3, usuario.getId());
+            statement.setLong(3, usuario.getId());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("Usuario actualizado exitosamente");
+                return true;
             }
+            return false;
+
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("error");
+            return false;
+
         }
     }
 
