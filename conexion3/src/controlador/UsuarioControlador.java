@@ -76,7 +76,7 @@ public class UsuarioControlador implements UserRepository {
             		"UPDATE `users` SET `name`='?',`email`='?' WHERE id= '?'");
             statement.setString(1, usuario.getNombre());
             statement.setString(2, usuario.getEmail());
-            statement.setLong(3, usuario.getId());
+            statement.setInt(3, usuario.getId());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {

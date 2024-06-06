@@ -8,8 +8,10 @@ import javax.swing.border.EmptyBorder;
 
 import Controlador.UsuarioControlador;
 import Modelo.Usuario;
-import javax.swing.JTextField;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -18,14 +20,18 @@ public class Editar extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField inpnombre;
+	private JTextField inpNombre;
 	private JTextField inpMail;
+	private UsuarioControlador controlador = new UsuarioControlador();
 
 	/**
 	 * Launch the application.
 	 */
 	
-	
+
+	/**
+	 * Create the frame.
+	 */
 	public Editar(Usuario usuario) {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,66 +42,56 @@ public class Editar extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		inpnombre = new JTextField();
-		inpnombre.setBounds(20, 40, 86, 20);
-		contentPane.add(inpnombre);
-		inpnombre.setText(usuario.getNombre());
-		inpnombre.setColumns(10);
+		JLabel lblNewLabel = new JLabel("Nombre");
+		lblNewLabel.setBounds(148, 49, 46, 14);
+		contentPane.add(lblNewLabel);
 		
-		JLabel lblNombre = new JLabel("Nombre anterior");
-		lblNombre.setBounds(20, 15, 348, 14);
-		contentPane.add(lblNombre);
-		lblNombre.setText("Nombre anterior " + usuario.getNombre());
-		JLabel lblpMail = new JLabel("Mail anterior");
-		lblpMail.setBounds(20, 71, 348, 14);
-		contentPane.add(lblpMail);
-		lblpMail.setText("Mail anterior " +usuario.getEmail());
+		inpNombre = new JTextField();
+		inpNombre.setBounds(37, 74, 268, 20);
+		contentPane.add(inpNombre);
+		inpNombre.setColumns(10);
+		inpNombre.setText(usuario.getNombre());
+		JLabel lblNewLabel_1 = new JLabel("Mail");
+		lblNewLabel_1.setBounds(148, 106, 46, 14);
+		contentPane.add(lblNewLabel_1);
+		
 		inpMail = new JTextField();
+		inpMail.setBounds(37, 131, 268, 20);
+		contentPane.add(inpMail);
 		inpMail.setColumns(10);
 		inpMail.setText(usuario.getEmail());
-
-		inpMail.setBounds(20, 96, 86, 20);
-		contentPane.add(inpMail);
-		
-		JLabel lblError = new JLabel("");
-		lblError.setBounds(185, 43, 228, 46);
-		contentPane.add(lblError);
-		JLabel lblE = new JLabel("");
-		lblE.setBounds(250, 71, 46, 14);
-		contentPane.add(lblE);
-		
-		JLabel Id = new JLabel("ID:" + usuario.getId());
-		Id.setBounds(266, 43, 46, 14);
-		contentPane.add(Id);
+		JLabel lblid = new JLabel("Id usuario :" + usuario.getId());
+		lblid.setBounds(278, 49, 135, 14);
+		contentPane.add(lblid);
 		JButton btnNewButton = new JButton("Editar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if (inpMail.getText().equals(usuario.getEmail())) {
-					lblError.setText("No puede repetir mail");
+				if (usuario.getEmail().equals(inpMail.getText())) {
+					JOptionPane.showMessageDialog(null, "Debe poner un mail distinto");
 				} else {
 					usuario.setEmail(inpMail.getText());
-					usuario.setNombre(inpnombre.getText());
-					UsuarioControlador  controlador = new UsuarioControlador();
+					usuario.setNombre(inpNombre.getText());;
 					if (controlador.updateUser(usuario)) {
-						tabla nueva = new tabla();
+						JOptionPane.showMessageDialog(null, "Pudo editar");
+						Home home = new Home(usuario.getNombre());
 						dispose();
 					} else {
-						lblE.setText("No se pudo agregar");
+						JOptionPane.showMessageDialog(null, "No poudo editar");
+
 					}
-					
-				
 					
 				}
 				
 			}
 		});
-		btnNewButton.setBounds(20, 167, 89, 23);
+		btnNewButton.setBounds(123, 184, 89, 23);
 		contentPane.add(btnNewButton);
-;
 		
+		JLabel lblError = new JLabel("");
+		lblError.setBounds(232, 105, 46, 14);
+		contentPane.add(lblError);
 		
-		
-		
+	
 	}
 }

@@ -32,11 +32,23 @@ public class tabla extends JFrame {
     private UsuarioControlador controlador;
     private JLabel elemento;
     private Usuario seleccionado;
+    private JButton Editar;
 
     /**
      * Launch the application.
      */
-    
+    public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					tabla frame = new tabla();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
     /**
      * Create the frame.
      */
@@ -70,42 +82,46 @@ public class tabla extends JFrame {
         elemento = new JLabel("Seleccionado:");
         elemento.setBounds(5, 5, 911, 14);
         contentPane.add(elemento);
-
-        // Crear el botón de eliminar
-        JButton Eliminar = new JButton("Eliminar");
-        Eliminar.setBounds(574, 295, 250, 54);
-        Eliminar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	if (seleccionado.getId()!=0) {
-            	      controlador.deleteUser(seleccionado.getId());
-                      actualizarTabla();
-                      seleccionado.setId(0);
-				} else {
-					JOptionPane.showMessageDialog(null, "Seleccione un usuario");
-				}
-          
-            }
-        });
-        contentPane.add(Eliminar);
         
-        JButton Editar = new JButton("Editar");
-        Editar.addActionListener(new ActionListener() {
+        JButton btnEliminar = new JButton("Eliminar");
+        btnEliminar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
         		if (seleccionado.getId()!=0) {
-          	      	Editar editar = new Editar(seleccionado);
-                    dispose();
-                    seleccionado.setId(0);
+					
+        			controlador.deleteUser(seleccionado.getId());
+        			JOptionPane.showMessageDialog(null, "Elimnado");
+        			 actualizarTabla();
 				} else {
 					JOptionPane.showMessageDialog(null, "Seleccione un usuario");
 				}
+        		
         		
         		
         	}
         });
-        Editar.setBounds(109, 295, 250, 54);
+        btnEliminar.setBounds(53, 280, 187, 58);
+        contentPane.add(btnEliminar);
+        
+        Editar = new JButton("Editar");
+        Editar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		if (seleccionado.getId()!=0) {
+					
+        			Editar editar = new Editar(seleccionado);
+        			dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "Seleccione un usuario");
+				}
+        		
+        	}
+        });
+        Editar.setBounds(367, 280, 166, 58);
         contentPane.add(Editar);
 
+        // Crear el botón de eliminar
+       
         // Configurar el modelo de selección
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -141,7 +157,8 @@ public class tabla extends JFrame {
         for (Usuario usuario : usuarios) {
             model.addRow(
             		new Object[]
-            				{usuario.getId()
+            				{
+            						usuario.getId()
             						, usuario.getNombre()
             						, usuario.getEmail()
             						}
