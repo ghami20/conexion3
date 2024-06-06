@@ -1,5 +1,6 @@
 package Vista;
 
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.List;
@@ -23,8 +24,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
+import javax.swing.JComboBox;
 
-public class tabla extends JFrame {
+public class Buscador extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -34,6 +36,7 @@ public class tabla extends JFrame {
     private JLabel elemento;
     private Usuario seleccionado;
     private JButton Editar;
+    private JButton Buscar;
 
     /**
      * Launch the application.
@@ -42,7 +45,7 @@ public class tabla extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					tabla frame = new tabla();
+					Buscador frame = new Buscador();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +56,7 @@ public class tabla extends JFrame {
     /**
      * Create the frame.
      */
-    public tabla() {
+    public Buscador() {
     	this.setVisible(true);
     	this.setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,7 +79,7 @@ public class tabla extends JFrame {
 
         // Crear el JScrollPane y agregar la tabla
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(5, 19, 911, 190);
+        scrollPane.setBounds(5, 55, 911, 190);
         contentPane.add(scrollPane);
 
         // Crear el JLabel para mostrar la selección
@@ -101,31 +104,28 @@ public class tabla extends JFrame {
         		
         	}
         });
-        btnEliminar.setBounds(53, 280, 187, 58);
-        contentPane.add(btnEliminar);
-        
-        Editar = new JButton("Editar");
-        Editar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		
-        		if (seleccionado.getId()!=0) {
-					
-        			Editar editar = new Editar(seleccionado);
-        			dispose();
-				} else {
-					JOptionPane.showMessageDialog(null, "Seleccione un usuario");
-				}
-        		
-        	}
-        });
-        Editar.setBounds(367, 280, 166, 58);
+     
+        Editar.setBounds(451, 308, 166, 58);
         contentPane.add(Editar);
         
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.setBounds(15, 220, 101, 22);
-        contentPane.add(menuBar);
+        JComboBox comboBox = new JComboBox();
+        comboBox.setBounds(5, 30, 357, 22);
+        contentPane.add(comboBox);
+        comboBox.addItem("A");
+        comboBox.addItem("B");
+        comboBox.addItem("G");
+        
+        
        
-
+        Buscar = new JButton("Buscar");
+        Buscar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		actualizarPorBusqueda((String)comboBox.getSelectedItem());
+        	}
+        });
+        Buscar.setBounds(409, 1, 187, 58);
+        contentPane.add(Buscar);
         // Crear el botón de eliminar
        
         // Configurar el modelo de selección
@@ -169,6 +169,29 @@ public class tabla extends JFrame {
             						, usuario.getEmail()
             						}
             		);
+        }
+    }
+    
+    private void actualizarPorBusqueda( String crieterio) {
+        // Limpiar el modelo de la tabla
+        model.setRowCount(0);
+
+        // Obtener la lista actualizada de usuarios
+        List<Usuario> usuarios = controlador.getAllUsers();
+
+        // Agregar los datos al modelo
+        for (Usuario usuario : usuarios) {
+        	if (usuario.getNombre().startsWith(crieterio)) {
+        		model.addRow(
+                		new Object[]
+                				{
+                						usuario.getId()
+                						, usuario.getNombre()
+                						, usuario.getEmail()
+                						}
+                		);
+			} 
+            
         }
     }
 }
