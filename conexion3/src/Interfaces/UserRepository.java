@@ -14,5 +14,5 @@ public interface UserRepository {
     
     void updateUser(Usuario user); //actualiza los usuarios de la bdd
     
-    void deleteUser(int id); //eliminar usuarios de la bdd
+    boolean deleteUser(int id); //eliminar usuarios de la bdd
 }

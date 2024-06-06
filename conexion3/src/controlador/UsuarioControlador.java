@@ -87,7 +87,7 @@ public class UsuarioControlador implements UserRepository {
     }
 
     @Override
-    public void deleteUser(int id) {
+    public boolean deleteUser(int id) {
         try {
             PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE id = ?");
             statement.setInt(1, id);
@@ -95,9 +95,14 @@ public class UsuarioControlador implements UserRepository {
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
                 System.out.println("Usuario eliminado exitosamente");
+                return true;
             }
+            return false;
+
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
+
         }
     }
 
