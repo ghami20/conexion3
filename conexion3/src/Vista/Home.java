@@ -33,6 +33,7 @@ public class Home extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton verusuarios = new JButton("Ver usuarios");
+		
 		verusuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

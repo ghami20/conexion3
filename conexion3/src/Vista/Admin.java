@@ -30,7 +30,7 @@ public class Admin extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("admin");
+		JLabel lblNewLabel = new JLabel("Bienvenido admin");
 		lblNewLabel.setBounds(109, 81, 377, 101);
 		contentPane.add(lblNewLabel);
 	}
