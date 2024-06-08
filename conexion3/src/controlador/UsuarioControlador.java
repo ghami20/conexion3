@@ -45,7 +45,7 @@ public class UsuarioControlador implements UserRepository {
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-                user = new Usuario(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"),resultSet.getInt("roll"));
+                user = new Usuario(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"),resultSet.getInt("rol"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
