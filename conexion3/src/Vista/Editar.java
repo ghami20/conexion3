@@ -51,6 +51,12 @@ public class Editar extends JFrame {
 		contentPane.add(inpNombre);
 		inpNombre.setColumns(10);
 		inpNombre.setText(usuario.getNombre());
+		
+		JTextField inpid= new JTextField();
+		inpid.setBounds(33, 94, 300, 30);
+		contentPane.add(inpid);
+		inpid.setColumns(10);
+		inpid.setText(Integer.toString(usuario.getRol()));
 		JLabel lblNewLabel_1 = new JLabel("Mail");
 		lblNewLabel_1.setBounds(148, 106, 46, 14);
 		contentPane.add(lblNewLabel_1);
@@ -72,6 +78,7 @@ public class Editar extends JFrame {
 				} else {
 					usuario.setEmail(inpMail.getText());
 					usuario.setNombre(inpNombre.getText());;
+					usuario.setRol(Integer.parseInt(inpid.getText()));;
 					if (controlador.updateUser(usuario)) {
 						JOptionPane.showMessageDialog(null, "Pudo editar");
 						Home home = new Home(usuario.getNombre());

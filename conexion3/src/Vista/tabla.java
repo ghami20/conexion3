@@ -55,7 +55,7 @@ public class tabla extends JFrame {
      */
     public tabla() {
     	this.setVisible(true);
-    	this.setVisible(true);
+    	
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 909, 452);
         contentPane = new JPanel();
@@ -68,7 +68,7 @@ public class tabla extends JFrame {
        Usuario seleccionado = new Usuario();
 
         // Crear la tabla y el modelo
-        String[] columnNames = {"ID", "Nombre", "mail"};
+        String[] columnNames = {"ID", "Nombre", "mail","Rol"};
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
         actualizarTabla();
@@ -142,10 +142,12 @@ public class tabla extends JFrame {
                         int id = (int) table.getValueAt(selectedRow, 0);
                         String nombre = (String) table.getValueAt(selectedRow, 1);
                         String mail = (String) table.getValueAt(selectedRow, 2);
-                        elemento.setText("Seleccionado: ID=" + id + ", Nombre=" + nombre + ", Mail=" + mail);
+                        int rol = (int) table.getValueAt(selectedRow, 3);
+                        elemento.setText("Seleccionado: ID=" + id + ", Nombre=" + nombre + ", Mail=" + mail + "Rol=" + rol );
                         seleccionado.setEmail(mail);
                         seleccionado.setNombre(nombre);
                         seleccionado.setId(id);
+                        seleccionado.setRol(rol);
                     }
                 }
             }
@@ -167,6 +169,7 @@ public class tabla extends JFrame {
             						usuario.getId()
             						, usuario.getNombre()
             						, usuario.getEmail()
+            						, usuario.getRol()
             						}
             		);
         }
