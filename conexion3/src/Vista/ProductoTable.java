@@ -22,6 +22,7 @@ public class ProductoTable extends JFrame {
     private ProductoControlador controlador;
     private JLabel imagenLabel;
     private Producto seleccionado;
+    private JTextField filtrar;
 
     /**
      * Launch the application.
@@ -48,7 +49,6 @@ public class ProductoTable extends JFrame {
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
-        contentPane.setLayout(null);
 
         // Inicializar controlador y producto seleccionado
         controlador = new ProductoControlador();
@@ -59,6 +59,7 @@ public class ProductoTable extends JFrame {
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
         actualizarTabla();
+        contentPane.setLayout(null);
 
         // Crear el JScrollPane y agregar la tabla
         JScrollPane scrollPane = new JScrollPane(table);
@@ -114,6 +115,26 @@ public class ProductoTable extends JFrame {
         JButton btnEditar = new JButton("Editar");
         btnEditar.setBounds(750, 270, 120, 30);
         contentPane.add(btnEditar);
+        
+        filtrar = new JTextField();
+        filtrar.setBounds(15, 316, 86, 20);
+        contentPane.add(filtrar);
+        filtrar.setColumns(10);
+        
+        JLabel lblNewLabel = new JLabel("Criterio");
+        lblNewLabel.setBounds(127, 319, 62, 14);
+        contentPane.add(lblNewLabel);
+        
+        JButton btnNewButton = new JButton("Filtrar");
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		Filtrar(filtrar.getText());
+        		
+        	}
+        });
+        btnNewButton.setBounds(238, 316, 89, 23);
+        contentPane.add(btnNewButton);
         btnEditar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -138,6 +159,20 @@ public class ProductoTable extends JFrame {
         // Agregar los datos al modelo
         for (Producto producto : productos) {
             model.addRow(new Object[]{producto.getId(), producto.getNombre(), producto.getPrecio(), producto.getCantidad()});
+        }
+    }
+    private void Filtrar(String criterio) {
+        // Limpiar el modelo de la tabla
+        model.setRowCount(0);
+
+        // Obtener la lista actualizada de productos
+        List<Producto> productos = controlador.getAllProducts();
+
+        // Agregar los datos al modelo
+        for (Producto producto : productos) {
+        	if(producto.getNombre().contains(criterio)) {
+                model.addRow(new Object[]{producto.getId(), producto.getNombre(), producto.getPrecio(), producto.getCantidad()});
+        	}
         }
     }
 
