@@ -8,17 +8,20 @@ public class Usuario {
 	private int id;
 	private String nombre;
 	private String email;
+	private int rol;
 
-	public Usuario(int id, String nombre, String email) {
+	public Usuario(int id, String nombre, String email,int rol) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.email = email;
+		this.rol=rol;
 	}
 
-	public Usuario(String nombre, String email) {
+	public Usuario(String nombre, String email,int rol) {
 		this.nombre = nombre;
 		this.email = email;
+		this.rol=rol;
 	}
 
 	public Usuario() {
@@ -49,9 +52,25 @@ public class Usuario {
 		this.email = email;
 	}
 
+	
+	
+	
+	
+	
+	
+	public int getRol() {
+		return rol;
+	}
+
+	public void setRol(int rol) {
+		this.rol = rol;
+	}
+	
+	
+
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + ", email=" + email + "]";
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", email=" + email + ", rol=" + rol + "]";
 	}
 
 	public static String IniciarSesion(String nombre, String mail) {
@@ -64,7 +83,7 @@ public class Usuario {
 			
 			for (Usuario usuario : controlador.getAllUsers()) {
 				if (usuario.getNombre().equals(nombre) && usuario.getEmail().equals(mail)) {
-					return "Ingresa";
+					return  "rol:"+usuario.getRol();
 				}
 			}
 			return "No se encontró";
@@ -85,7 +104,7 @@ public class Usuario {
 						return "Usuario existente";
 					}
 				}
-				controlador.addUser(new Usuario(nombre,mail));
+				controlador.addUser(new Usuario(nombre,mail,1));
 				return "Ok";
 			} else {
 				return "Ingrese un mail valido(Minimo 4 letras)";

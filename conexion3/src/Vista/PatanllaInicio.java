@@ -82,12 +82,17 @@ public class PatanllaInicio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 			String respuesta = Usuario.IniciarSesion(inpNombre.getText(),inpContraseña.getText());
-			 if(respuesta.equals("Ingresa")) {
+			 if(respuesta.equals("rol:1")) {
+				 //Cliente
 				 Home home = new Home(inpNombre.getText());
 				 dispose();
-			 }else {
+			 }else if(respuesta.equals("rol:2")) {
+				 //Vendedor
+				 Admin admin = new Admin();
+				 dispose();
+			 }{
 				 lblError.setText(respuesta);
-					lblError.setVisible(true);
+				lblError.setVisible(true);
 
 			 }
 			}
